@@ -1,0 +1,126 @@
+[tool.poetry]
+name = "{{cookiecutter.project_slug}}"
+version = "0.1.0"
+description = "{{cookiecutter.description}}"
+packages = [
+    { include = "app" },
+]
+
+{%- if cookiecutter.author != "None" and cookiecutter.author_email != "None" %}
+authors = ["{{cookiecutter.author}} <{{cookiecutter.author_email}}>"]
+{% endif %}
+
+{%- if cookiecutter.license != "None" %}
+license = "{{cookiecutter.license}}"
+{%- endif %}
+
+{%- if cookiecutter.repository != "None" %}
+repository = "{{cookiecutter.repository}}"
+{%- endif %}
+
+{%- if cookiecutter.repository != "None" %}
+homepage = "{{cookiecutter.repository}}"
+{%- endif %}
+
+keywords = [
+    "telegram",
+    "bot",
+    "api",
+    "asyncio",
+]
+
+classifiers = [
+    {%- if cookiecutter.license != "None" %}
+    "License :: OSI Approved :: {{cookiecutter.license}} License",
+    {%- endif %}
+    "Environment :: Console",
+    "Framework :: AsyncIO",
+    "Typing :: Typed",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: {{cookiecutter.python_major_version}}",
+    "Programming Language :: Python :: {{cookiecutter.python_major_version}}.{{cookiecutter.python_minor_version}}",
+]
+
+[tool.poetry.scripts]
+{{cookiecutter.project_slug}} = "app:__main__.py"
+
+[tool.poetry.dependencies]
+python = "^{{cookiecutter.python_major_version}}.{{cookiecutter.python_minor_version}}"
+
+aiogram = {version = "3.0.0b1", allow-prereleases = true}
+
+{% if cookiecutter.setup_json_logger == "yes" -%}
+python-json-logger = "=2.0.2"
+{%- endif %}
+
+{%- if cookiecutter.use_orjson == "yes" %}
+orjson = "=3.6.7"
+{%- endif %}
+
+{%- if cookiecutter.use_i18n == "yes" %}
+Babel = "=2.9.1"
+{%- endif %}
+
+{%- if cookiecutter.use_edgedb == "yes" %}
+edgedb = "=0.22.0"
+{%- endif %}
+
+[tool.poetry.dev-dependencies]
+{%- if cookiecutter.use_black == "yes" %}
+black = "=22.1.0"
+{%- endif %}
+
+{%- if cookiecutter.use_isort == "yes" %}
+isort = "=5.10.1"
+{%- endif %}
+
+{%- if cookiecutter.use_mypy == "yes" %}
+mypy = "=0.931"
+{%- endif %}
+
+{%- if cookiecutter.use_flake8 == "yes" %}
+flake8 = "=4.0.1"
+{%- endif %}
+
+{%- if cookiecutter.use_flake8 == "yes" and cookiecutter.use_wemake_python_styleguide == "yes" %}
+wemake-python-styleguide = "=0.16.0"
+{%- endif %}
+
+{%- if cookiecutter.use_pre_commit == "yes" %}
+pre-commit = "=2.17.0"
+{% endif %}
+
+{%- if cookiecutter.use_pytest == "yes" %}
+# Testing
+pytest = "=7.0.1"
+pytest-asyncio = "=0.18.1"
+pytest-html = "=3.1.1"
+pytest-cov = "=3.0.0"
+{% endif %}
+
+{%- if cookiecutter.use_black == "yes" %}
+[tool.black]
+quiet = true
+{% endif %}
+
+{%- if cookiecutter.use_isort == "yes" %}
+[tool.isort]
+profile = "black"
+{% endif %}
+
+{%- if cookiecutter.use_mypy == "yes" %}
+[tool.mypy]
+strict = true
+
+{% if cookiecutter.setup_json_logger == "yes" -%}
+[[tool.mypy.overrides]]
+module = [
+    "pythonjsonlogger.jsonlogger",
+]
+ignore_missing_imports = true
+{% endif %}
+{%- endif %}
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

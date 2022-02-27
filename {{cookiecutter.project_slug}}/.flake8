@@ -1,0 +1,11 @@
+[flake8]
+max-line=length = 88
+ignore = D1, Q000, C8, E501
+exclude =
+    .git
+    build
+    dist
+    venv
+    docs
+    *.egg-info
+    scripts

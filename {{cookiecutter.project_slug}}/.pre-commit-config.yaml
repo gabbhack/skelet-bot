@@ -1,0 +1,42 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.1.0
+    hooks:
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+      - id: check-merge-conflict
+      - id: check-yaml
+      - id: debug-statements
+
+  {% if cookiecutter.use_black == "yes" -%}
+  - repo: https://github.com/psf/black
+    rev: 22.1.0
+    hooks:
+      - id: black
+        exclude: ^(dbschema/)
+  {% endif %}
+
+  {%- if cookiecutter.use_isort == "yes" %}
+  - repo: https://github.com/pre-commit/mirrors-isort
+    rev: v5.10.1
+    hooks:
+      - id: isort
+        additional_dependencies: [ toml ]
+        exclude: ^(dbschema/)
+  {% endif %}
+
+  {%- if cookiecutter.use_flake8 == "yes" %}
+  - repo: https://github.com/pycqa/flake8
+    rev: 4.0.1
+    hooks:
+      - id: flake8
+        exclude: ^(dbschema/)
+  {% endif %}
+
+  {%- if cookiecutter.use_mypy == "yes" %}
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v0.931
+    hooks:
+      - id: mypy
+        exclude: ^(dbschema/)
+  {%- endif -%}

@@ -1,0 +1,26 @@
+version: "3"
+services:
+  {% if cookiecutter.use_edgedb == "yes" -%}
+  edgedb:
+    image: edgedb/edgedb
+    environment:
+      EDGEDB_SERVER_SECURITY: insecure_dev_mode
+    volumes:
+      - "./dbschema:/dbschema"
+      - "./credentials:/root/.config/edgedb/credentials"
+    ports:
+      - "5656"
+  {% endif %}
+
+  {{cookiecutter.project_slug}}:
+    build: .
+    {% if cookiecutter.use_edgedb == "yes" -%}
+    depends_on:
+      - edgedb
+    {% endif %}
+    environment:
+      BOT_TOKEN: ""
+      {% if cookiecutter.use_edgedb == "yes" -%}
+      EDGEDB_DSN: edgedb://edgedb@edgedb
+      EDGEDB_TLS_SECURITY: insecure
+      {% endif %}
