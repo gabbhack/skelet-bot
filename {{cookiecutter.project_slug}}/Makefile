@@ -67,6 +67,7 @@ help:
 # =================================================================================================
 .PHONY: install
 install:
+	git init .
 	{%- if cookiecutter.use_edgedb == "yes" %}
 	curl --proto '=https' -sSf1 https://sh.edgedb.com | sh -s -- -y
 	{%- endif %}
