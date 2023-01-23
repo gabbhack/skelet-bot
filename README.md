@@ -1,5 +1,6 @@
 # Aiogram 3.x Base Bot Generator
-
+# Frozen
+This project is frozen because I found the cookiecutter quite complicated. Please use another, not yet frozen template for bots on aiogram - https://github.com/gabbhack/base-bot
 
 ## Features
 - Based on **[Aiogram 3.x](https://github.com/aiogram/aiogram/tree/dev-3.x)** - modern Telegram Bot API framework.
